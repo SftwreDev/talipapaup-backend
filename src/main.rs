@@ -1,9 +1,7 @@
 mod services;
 
 use crate::handlers::categories::delete_category;
-use crate::handlers::{
-    add_category, create_product, fetch_categories, fetch_product_by_id, fetch_products,
-};
+use crate::handlers::{add_category, create_product, delete_product, fetch_categories, fetch_product_by_id, fetch_products, update_product};
 use crate::services::establish_connection;
 use actix_cors::Cors;
 use actix_web::{get, middleware::Logger as ActixLogger, web, HttpResponse, Responder};
@@ -49,7 +47,9 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut web::ServiceConfig) + Send +
                 // Products endpoints
                 .service(create_product)
                 .service(fetch_products)
-                .service(fetch_product_by_id),
+                .service(fetch_product_by_id)
+                .service(update_product)
+                .service(delete_product)
         );
     };
 
