@@ -2,6 +2,8 @@
 
 pub mod prelude;
 
+pub mod carts;
 pub mod categories;
 pub mod products;
+
 pub mod responses;

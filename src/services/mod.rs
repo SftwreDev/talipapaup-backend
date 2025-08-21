@@ -1,6 +1,10 @@
 mod categories;
+mod products;
+mod carts;
 
 pub use categories::*;
+pub use products::*;
+pub use carts::*;
 
 use colourful_logger::Logger;
 use sea_orm::{Database, DatabaseConnection};
