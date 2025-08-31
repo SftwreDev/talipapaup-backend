@@ -114,16 +114,20 @@ pub async fn get_cart_by_user_id(
             // Raw SQL query joining carts and products
             let sql = r#"
                 SELECT
-                    (array_agg(c.id ORDER BY c.created_at))[1] as id,
+                    (array_agg(c.id ORDER BY c.created_at))[1] AS id,
                     c.product_id,
-                    SUM(c.total_qty)::INTEGER as total_qty,
-                    MIN(c.created_at) as created_at,
-                    MAX(c.updated_at) as updated_at
+                    SUM(c.total_qty)::INTEGER AS total_qty,
+                    MIN(c.created_at) AS created_at,
+                    MAX(c.updated_at) AS updated_at,
+                    p.product_name,
+                    p.description,
+                    p.price,
+                    p.img_url
                 FROM carts c
                 INNER JOIN products p ON c.product_id = p.id
                 WHERE c.user_id = $1
-                GROUP BY c.product_id
-                ORDER BY c.product_id
+                GROUP BY c.product_id, p.product_name, p.description, p.price, p.img_url
+                ORDER BY c.product_id;
             "#;
 
             match CartsResponse::find_by_statement(Statement::from_sql_and_values(

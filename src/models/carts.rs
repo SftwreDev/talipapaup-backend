@@ -36,4 +36,8 @@ pub struct CartsResponse {
     pub total_qty: i32,
     pub created_at: DateTimeWithTimeZone,
     pub updated_at: DateTimeWithTimeZone,
+    pub product_name: String,
+    pub description: String,
+    pub price: BigDecimal,
+    pub img_url: String,
 }
