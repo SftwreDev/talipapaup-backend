@@ -121,7 +121,8 @@ pub async fn get_cart_by_user_id(
                     MAX(c.updated_at) AS updated_at,
                     p.product_name,
                     p.description,
-                    p.price,
+                    p.price as product_price,
+                    (SUM(c.total_qty) * p.price)::NUMERIC AS sub_total_price,
                     p.img_url
                 FROM carts c
                 INNER JOIN products p ON c.product_id = p.id
